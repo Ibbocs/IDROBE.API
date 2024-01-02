@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IDrobeAPI.Domain\IDrobeAPI.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
