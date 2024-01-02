@@ -1,3 +1,5 @@
+using IDrobeAPI.Persistence;
+
 namespace IDrobeAPI.API
 {
     public class Program
@@ -17,6 +19,8 @@ namespace IDrobeAPI.API
             builder.Configuration.SetBasePath(env.ContentRootPath) //IdrobeAPI.API path'i
                 .AddJsonFile("appsettings.json", optional:false)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            builder.Services.AddPersistence(builder.Configuration); //persistance layer services...
 
             var app = builder.Build();
 
