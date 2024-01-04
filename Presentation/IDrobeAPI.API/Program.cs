@@ -1,4 +1,7 @@
 using IDrobeAPI.Persistence;
+using IDrobeAPI.Application;
+using IDrobe.Mapper;
+using IDrobeAPI.Infrastructure;
 
 namespace IDrobeAPI.API
 {
@@ -21,6 +24,10 @@ namespace IDrobeAPI.API
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             builder.Services.AddPersistence(builder.Configuration); //persistance layer services...
+            builder.Services.AddApplication(); //application layer services...
+            builder.Services.AddCustomMapper(); //mapper layer services...
+            builder.Services.AddInfrastructure(builder.Configuration); //infrastructure layer services...
+            builder.Services.AddPresentationAPI();
 
             var app = builder.Build();
 
@@ -30,6 +37,8 @@ namespace IDrobeAPI.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            //exception midilvare
+            app.UseCustomExceptionHandlingMiddleware();
 
             app.UseHttpsRedirection();
 

@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\IDrobe.Mapper\IDrobeAPI.Mapper.csproj" />
     <ProjectReference Include="..\..\Infrastructure\IDrobeAPI.Infrastructure\IDrobeAPI.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Infrastructure\IDrobeAPI.Persistence\IDrobeAPI.Persistence.csproj" />
   </ItemGroup>

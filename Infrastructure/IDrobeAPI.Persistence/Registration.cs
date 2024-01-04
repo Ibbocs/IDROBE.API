@@ -24,7 +24,22 @@ namespace IDrobeAPI.Persistence
             services.AddDbContext<ApplicationDbContext>(options => options.
             UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+            //identity
+            //services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddIdentityCore<AppUser>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequiredLength = 2;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireDigit = false;
+                opt.SignIn.RequireConfirmedEmail = false;
+                opt.SignIn.RequireConfirmedPhoneNumber = false;
+                opt.SignIn.RequireConfirmedAccount = false;
+            })
+                .AddRoles<AppRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             //Repository And UnitOfWork
             RegisterRepositories(services);
