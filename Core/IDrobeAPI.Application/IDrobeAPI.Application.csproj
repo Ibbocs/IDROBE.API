@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,6 +8,25 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IDrobeAPI.Domain\IDrobeAPI.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Auth\Constants\" />
+    <Folder Include="Features\Auth\DTOs\" />
+    <Folder Include="Features\Auth\Model\" />
+    <Folder Include="Features\Auth\Queries\" />
+    <Folder Include="Features\Products\DTOs\" />
+    <Folder Include="Features\Products\Constants\" />
+    <Folder Include="Features\Products\Model\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="SendGrid" Version="9.28.1" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.33.0" />
   </ItemGroup>
 
 </Project>
