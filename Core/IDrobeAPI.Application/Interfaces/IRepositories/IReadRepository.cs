@@ -1,4 +1,6 @@
-﻿using IDrobeAPI.Domain.Common;
+﻿using IDrobeAPI.Application.Interfaces.IPagination;
+using IDrobeAPI.Application.Model.DynamicQueriesModel;
+using IDrobeAPI.Domain.Common;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
@@ -28,6 +30,17 @@ namespace IDrobeAPI.Application.Interfaces.Repositories
         IQueryable<T> FindQuery(Expression<Func<T, bool>> predicate, bool enableTracking = false, bool isDeleted = false);
 
         Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null, bool isDeleted = false);
+
+        Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
+                                   Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+                                   Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                   int index = 0, int size = 10, bool enableTracking = true,
+                                   CancellationToken cancellationToken = default);
+
+        Task<IPaginate<T>> GetListByDynamicAsync(Dynamic dynamic,
+                                            Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                            int index = 0, int size = 10, bool enableTracking = true,
+                                            CancellationToken cancellationToken = default);
 
         //getbyid de yazmaq olar amma getsibgle o isi gorur
     }

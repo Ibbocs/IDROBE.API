@@ -1,6 +1,10 @@
-﻿using IDrobeAPI.Application.Interfaces.Repositories;
+﻿using IDrobeAPI.Application.Interfaces.IPagination;
+using IDrobeAPI.Application.Interfaces.Repositories;
+using IDrobeAPI.Application.Model.DynamicQueriesModel;
 using IDrobeAPI.Domain.Common;
 using IDrobeAPI.Persistence.Context;
+using IDrobeAPI.Persistence.Extentions.DynamicQueryExtentions;
+using IDrobeAPI.Persistence.Extentions.PaginationExtentions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
@@ -22,6 +26,11 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
         }
 
         public DbSet<T> Table => dbContext.Set<T>();
+
+        public IQueryable<T> Query()
+        {
+            return dbContext.Set<T>();
+        }
 
         public async Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null, bool isDeleted = false)
         {
@@ -84,5 +93,26 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
 
             return await queryable.FirstOrDefaultAsync(predicate);
         }
+
+        public async Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, int index = 0, int size = 10, bool enableTracking = true, CancellationToken cancellationToken = default)
+        {
+            IQueryable<T> queryable = Query();
+            if (!enableTracking) queryable = queryable.AsNoTracking();
+            if (include != null) queryable = include(queryable);
+            if (predicate != null) queryable = queryable.Where(predicate);
+            if (orderBy != null)
+                return await orderBy(queryable).ToPaginateAsync(index, size, 0, cancellationToken);
+            return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
+        }
+
+        public async Task<IPaginate<T>> GetListByDynamicAsync(Dynamic dynamic, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, int index = 0, int size = 10, bool enableTracking = true, CancellationToken cancellationToken = default)
+        {
+            IQueryable<T> queryable = Query().AsQueryable().ToDynamic(dynamic);
+            if (!enableTracking) queryable = queryable.AsNoTracking();
+            if (include != null) queryable = include(queryable);
+            return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
+        }
+
+       
     }
 }

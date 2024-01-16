@@ -3,6 +3,14 @@ using MediatR;
 using IDrobeAPI.Application.Features.Products.Commands.CreateProduct;
 using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
 using Microsoft.AspNetCore.Authorization;
+using IDrobeAPI.Application.Interfaces.IPagination;
+using IDrobeAPI.Application.Interfaces.IAutoMapper;
+using AutoMapper;
+using IDrobeAPI.Application.Features.Brands.DTOs;
+using IDrobeAPI.Domain.Entities;
+using IDrobeAPI.Application.Models.PaginationModels;
+using IDrobeAPI.Persistence.Implementation.Paginations;
+using IDrobeAPI.Application.Model.DynamicQueriesModel;
 
 namespace IDrobeAPI.API.Controllers
 {
@@ -17,11 +25,25 @@ namespace IDrobeAPI.API.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMediator _mediator;
+        private List<WeatherForecast> _forecasts;
+        private ICustomMapper _customMapper;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator, ICustomMapper customMapper)
         {
             _logger = logger;
             _mediator = mediator;
+            _customMapper = customMapper;
+
+            _forecasts = new List<WeatherForecast>();
+
+            for (int i = 0; i < 100; i++)
+            {
+                _forecasts.Add(new()
+                {
+                    TemperatureC = i
+
+                });
+            }
         }
 
         //[HttpGet(Name = "GetWeatherForecast")]
@@ -49,5 +71,43 @@ namespace IDrobeAPI.API.Controllers
             await _mediator.Send(request);
             return Ok();
         }
+
+        [HttpGet("[action]")]
+        public async Task<WeatherListVM> Index([FromQuery] PageRequest request)
+        {
+            IPaginate<WeatherForecast> paginate = new Paginate<WeatherForecast>(_forecasts, request.Page, request.PageSize,0);
+
+            //var brand = _customMapper.Map<List<WeatherForecast>>();
+
+            WeatherListVM weatherListVM = _customMapper.Map<WeatherListVM>(paginate);
+
+            //IPaginate<Student> brands = await _repo.GetListAsync(index: request.Page, size: request.PageSize);
+
+            //StudentListModel mappedBrandListModel = _mapper.Map<StudentListModel>(brands);
+
+            return weatherListVM;
+        }
+
+        public class WeatherListVM:BasePageableModel
+        {
+            public IList<WeatherForecast>? Items { get; set; }
+        }
+
+        //[HttpPost("[action]")]
+        //public async Task<WeatherListVM> IndexByDynamic([FromQuery] PageRequest request, Dynamic dynamic )
+        //{
+        //    //IPaginate<WeatherForecast> paginate = IPaginate < WeatherForecast > brands = await _repo.GetListByDynamicAsync(dynamic: Dynamic, index: request.Page, size: request.PageSize);
+
+        //    //var brand = _customMapper.Map<List<WeatherForecast>>();
+
+        //    //WeatherListVM weatherListVM = _customMapper.Map<WeatherListVM>(paginate);
+
+        //    //IPaginate<Student> brands = await _repo.GetListAsync(index: request.Page, size: request.PageSize);
+
+        //    //StudentListModel mappedBrandListModel = _mapper.Map<StudentListModel>(brands);
+
+        //    //return weatherListVM;
+        //    yield return null; yield return null; yield return null;
+        //}
     }
 }

@@ -26,7 +26,7 @@ namespace IDrobeAPI.Persistence
 
             //identity
             //services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
-
+            //todo identity validation duzelt
             services.AddIdentityCore<AppUser>(opt =>
             {
                 opt.Password.RequireNonAlphanumeric = false;
