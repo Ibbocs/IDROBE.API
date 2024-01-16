@@ -72,26 +72,26 @@ namespace IDrobeAPI.API.Controllers
             return Ok();
         }
 
-        [HttpGet("[action]")]
-        public async Task<WeatherListVM> Index([FromQuery] PageRequest request)
-        {
-            IPaginate<WeatherForecast> paginate = new Paginate<WeatherForecast>(_forecasts, request.Page, request.PageSize,0);
+        //[HttpGet("[action]")]
+        //public async Task<WeatherListVM> Index([FromQuery] PageRequest request)
+        //{
+        //    IPaginate<WeatherForecast> paginate = new Paginate<WeatherForecast>(_forecasts, request.Page, request.PageSize,0);
 
-            //var brand = _customMapper.Map<List<WeatherForecast>>();
+        //    //var brand = _customMapper.Map<List<WeatherForecast>>();
 
-            WeatherListVM weatherListVM = _customMapper.Map<WeatherListVM>(paginate);
+        //    WeatherListVM weatherListVM = _customMapper.Map<WeatherListVM>(paginate);
 
-            //IPaginate<Student> brands = await _repo.GetListAsync(index: request.Page, size: request.PageSize);
+        //    //IPaginate<Student> brands = await _repo.GetListAsync(index: request.Page, size: request.PageSize);
 
-            //StudentListModel mappedBrandListModel = _mapper.Map<StudentListModel>(brands);
+        //    //StudentListModel mappedBrandListModel = _mapper.Map<StudentListModel>(brands);
 
-            return weatherListVM;
-        }
+        //    return weatherListVM;
+        //}
 
-        public class WeatherListVM:BasePageableModel
-        {
-            public IList<WeatherForecast>? Items { get; set; }
-        }
+        //public class WeatherListVM:BasePageableModel
+        //{
+        //    public IList<WeatherForecast>? Items { get; set; }
+        //}
 
         //[HttpPost("[action]")]
         //public async Task<WeatherListVM> IndexByDynamic([FromQuery] PageRequest request, Dynamic dynamic )
