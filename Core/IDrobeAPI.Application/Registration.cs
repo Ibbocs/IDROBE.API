@@ -2,6 +2,7 @@
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Beheviors;
 using IDrobeAPI.Application.Exceptions;
+using IDrobeAPI.Application.Exceptions.Middlewares;
 using IDrobeAPI.Application.Features.Products.Commands.CreateProduct;
 using IDrobeAPI.Application.Features.Products.Rules;
 using MediatR;
@@ -25,7 +26,7 @@ namespace IDrobeAPI.Application
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
             //middleware de service kimi vermek lazim
-            services.AddTransient<ExceptionMiddleware>();
+            services.AddTransient<ExceptionMiddlewareFirst>();
 
             //fullent validation
             services.AddValidatorsFromAssembly(assembly);
@@ -41,6 +42,7 @@ namespace IDrobeAPI.Application
         public static void UseCustomExceptionHandlingMiddleware(this IApplicationBuilder app)
         {
             app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddlewareFirst>();
         }
 
 

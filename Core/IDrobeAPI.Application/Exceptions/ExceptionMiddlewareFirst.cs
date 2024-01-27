@@ -10,7 +10,7 @@ using FluentValidation;
 
 namespace IDrobeAPI.Application.Exceptions
 {
-    public class ExceptionMiddleware : IMiddleware
+    public class ExceptionMiddlewareFirst : IMiddleware
     {
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
