@@ -1,4 +1,4 @@
-﻿using IDrobeAPI.Application.Model.DynamicQueriesModel;
+﻿using IDrobeAPI.Application.Models.DynamicQueriesModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

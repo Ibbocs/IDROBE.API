@@ -5,6 +5,8 @@ using IDrobeAPI.Application.Exceptions;
 using IDrobeAPI.Application.Exceptions.Middlewares;
 using IDrobeAPI.Application.Features.Products.Commands.CreateProduct;
 using IDrobeAPI.Application.Features.Products.Rules;
+using IDrobeAPI.Application.Interfaces.IResponses;
+using IDrobeAPI.Application.Models.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +27,10 @@ namespace IDrobeAPI.Application
             var assembly = Assembly.GetExecutingAssembly();
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly));
+            services.AddAutoMapper(assembly);
             //middleware de service kimi vermek lazim
-            services.AddTransient<ExceptionMiddlewareFirst>();
+            //services.AddTransient<ExceptionMiddlewareFirst>();
+            //services.AddTransient<ExceptionMiddleware>();
 
             //fullent validation
             services.AddValidatorsFromAssembly(assembly);
@@ -37,6 +41,9 @@ namespace IDrobeAPI.Application
             //Rules
             //services.AddTransient<ProductRules>();//bu formada hamsin elave elemeilsen
             services.AddRulesFromAssemblyContaining(assembly, typeof(BaseRules));//bu formada tek yerden hamsin elave edirik rullari, amma base rule'dan inheretance edilmis
+
+            //services.AddSingleton<IActionResponse, ActionResponse>();
+            //services.AddScoped(typeof(IGenericActionResponse<>), typeof(GenericActionResponse<>));
         }
 
         public static void UseCustomExceptionHandlingMiddleware(this IApplicationBuilder app)

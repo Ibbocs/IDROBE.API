@@ -10,7 +10,7 @@ using IDrobeAPI.Application.Features.Brands.DTOs;
 using IDrobeAPI.Domain.Entities;
 using IDrobeAPI.Application.Models.PaginationModels;
 using IDrobeAPI.Persistence.Implementation.Paginations;
-using IDrobeAPI.Application.Model.DynamicQueriesModel;
+using IDrobeAPI.Application.Models.DynamicQueriesModels;
 
 namespace IDrobeAPI.API.Controllers
 {

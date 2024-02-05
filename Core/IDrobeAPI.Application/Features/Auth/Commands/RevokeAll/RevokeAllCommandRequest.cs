@@ -1,5 +1,5 @@
-﻿using IDrobeAPI.Application.BaseObjects;
-using IDrobeAPI.Application.Interfaces.IAutoMapper;
+﻿using AutoMapper;
+using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Interfaces.IUnitOfWorks;
 using IDrobeAPI.Domain.Identity;
 using MediatR;
@@ -21,7 +21,7 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.RevokeAll
     public class RevokeAllCommandHandler : BaseHandler, IRequestHandler<RevokeAllCommandRequest, Unit>
     {
         private readonly UserManager<AppUser> userManager;
-        public RevokeAllCommandHandler(ICustomMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager) : base(mapper, unitOfWork, httpContextAccessor)
+        public RevokeAllCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.userManager = userManager;
         }

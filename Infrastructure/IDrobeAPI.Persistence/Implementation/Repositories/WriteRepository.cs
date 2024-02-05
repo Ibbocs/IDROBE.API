@@ -1,4 +1,5 @@
-﻿using IDrobeAPI.Application.Interfaces.Repositories;
+﻿using Bogus.DataSets;
+using IDrobeAPI.Application.Interfaces.Repositories;
 using IDrobeAPI.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -32,11 +33,19 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Table.AddRangeAsync(entities);
         }
 
-        public async Task<bool> UpdateAsync(T entity)
+        public bool UpdateAsync(T entity)
         {
-            EntityEntry<T> entityEntry = null;
-            await Task.Run(() => { entityEntry = Table.Update(entity); });
-            return entityEntry==null ? false  : entityEntry.State == EntityState.Modified; 
+            //await Task.Run(()
+            //    =>
+            //{
+            //    EntityEntry<T> entityEntry = Table.Update(entity);
+            //    return entityEntry.State == EntityState.Modified;
+
+            //});
+            //return false;
+
+            EntityEntry<T> entityEntry = Table.Update(entity);
+            return entityEntry.State == EntityState.Modified;
         }
 
         public async Task UpdateRange(ICollection<T> entities)
@@ -44,11 +53,10 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Task.Run(() => { Table.UpdateRange(entities); });
         }
 
-        public async Task<bool> HardDeleteAsync(T entity)
+        public bool HardDeleteAsync(T entity)
         {
-            EntityEntry<T> entityEntry = null;
-            await Task.Run(() => { entityEntry = Table.Remove(entity); });
-            return entityEntry == null ? false : entityEntry.State == EntityState.Modified;
+            EntityEntry<T> entityEntry = Table.Remove(entity);
+            return entityEntry.State == EntityState.Deleted;
         }
 
         public async Task HardDeleteRangeAsync(IList<T> entities)
@@ -56,12 +64,16 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Task.Run(() => { Table.RemoveRange(entities); });
         }
 
-        public async Task<bool> SoftDeleteAsync(T entity)
+        public bool SoftDeleteAsync(T entity)
         {
-            EntityEntry<T> entityEntry = null;
+            //EntityEntry<T> entityEntry = null;
+            //entity.IsDeleted = true;
+            //await Task.Run(() => { entityEntry = Table.Update(entity); });
+            //return entityEntry == null ? false : entityEntry.State == EntityState.Modified;
+
             entity.IsDeleted = true;
-            await Task.Run(() => { entityEntry = Table.Update(entity); });
-            return entityEntry == null ? false : entityEntry.State == EntityState.Modified;
+            EntityEntry<T> entityEntry = Table.Update(entity);
+            return entityEntry.State == EntityState.Modified;
         }
 
         public async Task SoftDeleteRangeAsync(IList<T> entities)

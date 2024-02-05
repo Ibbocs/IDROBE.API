@@ -16,7 +16,7 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.Register
         public string ConfirmPassword { get; set; }
     }
 
-    //todo bir commandan bir baskasin tetiklmek- sondaki daha iyi
+    //todo bir commandan bir baskasin tetiklmek- sondaki daha yaxsi
 
     //public class UserRegisteredEvent : INotification
     //{

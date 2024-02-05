@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace IDrobeAPI.Application.Exceptions.Middlewares;
@@ -22,6 +23,7 @@ public class ExceptionMiddleware
         _next = next;
     }
 
+    //todo log yazdir ExxeptionMiddlware
     public async Task Invoke(HttpContext context)
     {
         try
@@ -51,7 +53,7 @@ public class ExceptionMiddleware
         return context.Response.WriteAsync(new AuthorizationProblemDetails
         {
             Status = StatusCodes.Status401Unauthorized,
-            Type = "https://example.com/probs/authorization",
+            Type = "https://idrobe.com/probs/authorization",
             Title = "Authorization exception",
             Detail = exception.Message,
             Instance = ""
@@ -65,7 +67,7 @@ public class ExceptionMiddleware
         return context.Response.WriteAsync(new BusinessProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
-            Type = "https://example.com/probs/business",
+            Type = "https://idrobe.com/probs/business",
             Title = "Business exception",
             Detail = exception.Message,
             Instance = ""
@@ -80,7 +82,7 @@ public class ExceptionMiddleware
         return context.Response.WriteAsync(new Problems.ValidationProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
-            Type = "https://example.com/probs/validation",
+            Type = "https://idrobe.com/probs/validation",
             Title = "Validation error(s)",
             Detail = "",
             Instance = "",
@@ -88,17 +90,29 @@ public class ExceptionMiddleware
         }.ToString());
     }
 
-    private Task CreateInternalException(HttpContext context, Exception exception)
+    private async Task CreateInternalException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
 
-        return context.Response.WriteAsync(new ProblemDetails
+        var errorResponse = new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
-            Type = "https://example.com/probs/internal",
+            Type = "https://idrobe.com/probs/internal",
             Title = "Internal exception",
             Detail = exception.Message,
             Instance = ""
-        }.ToString());
+        };
+
+        var errorResponseJson = JsonSerializer.Serialize(errorResponse);
+        await context.Response.WriteAsync(errorResponseJson);
+
+        //return context.Response.WriteAsync(new ProblemDetails
+        //{
+        //    Status = StatusCodes.Status500InternalServerError,
+        //    Type = "https://idrobe.com/probs/internal",
+        //    Title = "Internal exception",
+        //    Detail = exception.Message,
+        //    Instance = ""
+        //}.ToString());
     }
 }

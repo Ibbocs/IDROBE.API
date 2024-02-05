@@ -16,9 +16,12 @@ namespace IDrobeAPI.Domain.Entities
             CategoryId = categoryId;
         }
         public string Title { get; set; }
-        public string Description { get; set; }
+        public string Description { get; set; } //rengi meselen
+
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+
+        public IList<CategoryDetailsValue> CategoryDetailsValue { get; set; }
     }
 
 }

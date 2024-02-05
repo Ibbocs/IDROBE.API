@@ -1,18 +1,17 @@
-﻿namespace IDrobeAPI.Application.Model.DynamicQueriesModel
+﻿namespace IDrobeAPI.Application.Models.DynamicQueriesModels;
+
+public class Sort
 {
-    public class Sort
+    public string Field { get; set; }
+    public string Dir { get; set; }
+
+    public Sort()
     {
-        public string Field { get; set; }
-        public string Dir { get; set; }
+    }
 
-        public Sort()
-        {
-        }
-
-        public Sort(string field, string dir)
-        {
-            Field = field;
-            Dir = dir;
-        }
+    public Sort(string field, string dir)
+    {
+        Field = field;
+        Dir = dir;
     }
 }
