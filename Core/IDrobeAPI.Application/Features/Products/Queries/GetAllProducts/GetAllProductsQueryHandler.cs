@@ -27,7 +27,7 @@ namespace IDrobeAPI.Application.Features.Products.Queries.GetAllProducts
             var products = await unitOfWork.GetReadRepository<Product>().GetAllAsync(include: x => x.Include(b => b.Brand));
 
             //include ile gelen brand tipinde data, branddto cevrilir cunki o da QueryResponse icinde yeniden cevrilmede lazimdir.
-            var brand = mapper.Map<BrandDTO, Brand>(new Brand());
+            var brand = mapper.Map<BrandGetDto, Brand>(new Brand());
 
             var map = mapper.Map<GetAllProductsQueryResponse, Product>(products);
             foreach (var item in map)

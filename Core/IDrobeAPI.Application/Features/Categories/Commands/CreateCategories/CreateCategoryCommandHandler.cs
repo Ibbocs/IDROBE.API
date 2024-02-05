@@ -43,7 +43,7 @@ public class CreateCategoryCommandHandler : BaseHandler, IRequestHandler<CreateC
 
         response.RequestSuccessful = true;
         response.ResponseCode = System.Net.HttpStatusCode.Created;
-        response.Message = $"{request.Name} {CategoryResponseMessageConstants.successfullyCreated}";
+        response.Message = $"{request.CategoryName} {CategoryResponseMessageConstants.successfullyCreated}";
 
         return response;
     }

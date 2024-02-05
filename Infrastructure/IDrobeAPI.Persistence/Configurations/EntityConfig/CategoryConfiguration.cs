@@ -14,7 +14,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
         public void Configure(EntityTypeBuilder<Category> builder)
         {
 
-            builder.Property(x=>x.Name).IsRequired().HasMaxLength(100);
+            builder.Property(x=>x.CategoryName).IsRequired().HasMaxLength(100);
             builder.Property(x=>x.Priorty).IsRequired();
             builder.Property(x=>x.ParentId).IsRequired();
 
@@ -22,7 +22,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Category category1 = new()
             {
                 Id = 1,
-                Name = "Kisi",
+                CategoryName = "Kisi",
                 Priorty = 1,
                 ParentId = 0,
                 IsDeleted = false,
@@ -32,7 +32,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Category category2 = new()
             {
                 Id = 2,
-                Name = "Qadin",
+                CategoryName = "Qadin",
                 Priorty = 2,
                 ParentId = 0,
                 IsDeleted = false,
@@ -42,7 +42,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Category parent1 = new()
             {
                 Id = 3,
-                Name = "Ust",
+                CategoryName = "Ust",
                 Priorty = 1,
                 ParentId = 1,
                 IsDeleted = false,
@@ -52,7 +52,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Category parent2 = new()
             {
                 Id = 4,
-                Name = "Aksesuar",
+                CategoryName = "Aksesuar",
                 Priorty = 1,
                 ParentId = 2,
                 IsDeleted = false,

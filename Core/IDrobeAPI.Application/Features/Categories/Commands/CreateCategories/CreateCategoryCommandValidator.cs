@@ -16,7 +16,7 @@ public class CreateCategoryCommandValidator:AbstractValidator<CreateCategoryComm
             .GreaterThanOrEqualTo(0)
             .WithMessage(CategoryValidationMessageConstants.parentId).WithName("Parent Id");
 
-        RuleFor(request => request.Name)
+        RuleFor(request => request.CategoryName)
             .NotEmpty()
             .NotNull()
             .MaximumLength(100)

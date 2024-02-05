@@ -11,6 +11,6 @@ namespace IDrobeAPI.Application.Features.Categories.Commands.CreateCategories;
 public class CreateCategoryCommandRequest : IRequest<ActionResponse>
 {
     public int ParentId{ get; set;}
-    public string Name { get; set; }
+    public string CategoryName { get; set; }
     public int Priorty { get; set; }
 }

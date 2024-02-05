@@ -15,6 +15,6 @@ namespace IDrobeAPI.Application.Features.Products.Queries.GetAllProducts
         public decimal Price { get; set; }
         public decimal Discount { get; set; }
         //bunun adin Brand yazmagimin sebebi mapper basa dusun deyedi, entity icindeki ile eyni olmalidi
-        public BrandDTO Brand { get; set; }
+        public BrandGetDto Brand { get; set; }
     }
 }

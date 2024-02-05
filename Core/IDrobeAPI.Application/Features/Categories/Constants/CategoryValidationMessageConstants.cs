@@ -16,5 +16,5 @@ public static class CategoryValidationMessageConstants
     public const string page = "Page must be greater than or equal to 0";
     public const string pageSize = "Page Size must be greater than or equal to 0";
 
-    public const string dynamic = "Dynamic json body required";
+    public const string dynamic = "Dynamic json body is required";
 }
