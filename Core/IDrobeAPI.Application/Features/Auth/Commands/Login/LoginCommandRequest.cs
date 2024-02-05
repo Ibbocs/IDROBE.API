@@ -1,4 +1,5 @@
-﻿using IDrobeAPI.Application.BaseObjects;
+﻿using AutoMapper;
+using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Features.Auth.Rules;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
 using IDrobeAPI.Application.Interfaces.ITokens;
@@ -39,8 +40,9 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.Login
         private readonly IConfiguration configuration;
         private readonly ITokenService tokenService;
         private readonly AuthRules authRules;
+        private readonly ICustomMapper Custommapper;
 
-        public LoginCommandHandler(UserManager<AppUser> userManager, IConfiguration configuration, ITokenService tokenService, AuthRules authRules, ICustomMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
+        public LoginCommandHandler(UserManager<AppUser> userManager, IConfiguration configuration, ITokenService tokenService, AuthRules authRules, IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.userManager = userManager;
             this.configuration = configuration;

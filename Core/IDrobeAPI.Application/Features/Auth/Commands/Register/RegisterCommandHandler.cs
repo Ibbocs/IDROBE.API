@@ -1,4 +1,5 @@
-﻿using IDrobeAPI.Application.BaseObjects;
+﻿using AutoMapper;
+using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Features.Auth.Rules;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
 using IDrobeAPI.Application.Interfaces.IUnitOfWorks;
@@ -14,18 +15,20 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.Register
         private readonly AuthRules authRules;
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<AppRole> roleManager;
+        private readonly ICustomMapper customMapper;
 
-        public RegisterCommandHandler(AuthRules authRules, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, ICustomMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
+        public RegisterCommandHandler(AuthRules authRules, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, ICustomMapper customMapper) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.authRules = authRules;
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.customMapper = customMapper;
         }
         public async Task<Unit> Handle(RegisterCommandRequest request, CancellationToken cancellationToken)
         {
             await authRules.UserShouldNotBeExist(await userManager.FindByEmailAsync(request.Email));
 
-            AppUser user = mapper.Map<AppUser, RegisterCommandRequest>(request);
+            AppUser user = customMapper.Map<AppUser, RegisterCommandRequest>(request);
             user.UserName = request.Email;
             user.SecurityStamp = Guid.NewGuid().ToString();
 

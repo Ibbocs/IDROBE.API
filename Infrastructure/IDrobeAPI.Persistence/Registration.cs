@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace IDrobeAPI.Persistence
                 opt.SignIn.RequireConfirmedEmail = false;
                 opt.SignIn.RequireConfirmedPhoneNumber = false;
                 opt.SignIn.RequireConfirmedAccount = false;
+                opt.User.AllowedUserNameCharacters = string.Empty;
             })
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();

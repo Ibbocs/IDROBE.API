@@ -7,14 +7,14 @@ namespace IDrobeAPI.Application.Interfaces.Repositories
         Task<bool> AddAsync(T entity);
         Task AddRangeAsync(IList<T> entities);
 
-        Task<bool> UpdateAsync(T entity);
+        bool UpdateAsync(T entity);
         Task UpdateRange(ICollection<T> entities);
 
-        Task<bool> HardDeleteAsync(T entity);
+        bool HardDeleteAsync(T entity);
         Task HardDeleteRangeAsync(IList<T> entities);
         //Task<bool> HardRemove(string id);
 
-        Task<bool> SoftDeleteAsync(T entity);
+        bool SoftDeleteAsync(T entity);
         Task SoftDeleteRangeAsync(IList<T> entities);
         //Task<bool> SoftRemove(string id);
 

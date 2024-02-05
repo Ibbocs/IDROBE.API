@@ -19,12 +19,14 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             builder.Property(x=>x.Title).IsRequired().HasMaxLength(100);
             builder.Property(x=>x.Price).IsRequired();
             builder.Property(x=>x.Description).HasMaxLength(200);
-            builder.Property(x=>x.StockQuantity).IsRequired();
+            //builder.Property(x=>x.ArmType).HasMaxLength(200);
+            //builder.Property(x=>x.ImagePath).HasMaxLength(200);
+            //builder.Property(x=>x.StockQuantity).IsRequired();
 
             builder.HasQueryFilter(t => t.IsDeleted == false);//softdelete ucun fitir
 
 
-            Faker faker = new("tr");
+            Faker faker = new("en");
 
             Product product1 = new()
             {
@@ -32,10 +34,18 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
                 Title = faker.Commerce.ProductName(),
                 Description = faker.Commerce.ProductDescription(),
                 BrandId = 1,
-                Discount = faker.Random.Decimal(0, 10),
+                //Discount = faker.Random.Decimal(0, 10),
                 Price = faker.Finance.Amount(10, 1000),
+                ImagePath = faker.Image.LoremPixelUrl(),
+                IsNew = true,
+                Size = "M",
+                Color = faker.Commerce.Color(),
+                Length =  15.3m,
+                ClothesType = "Nem",
+                ArmType ="Nem2",
                 CreatedDate = DateTime.Now,
-                IsDeleted = false,
+                IsDeleted = false
+                
             };
             Product product2 = new()
             {
@@ -43,10 +53,17 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
                 Title = faker.Commerce.ProductName(),
                 Description = faker.Commerce.ProductDescription(),
                 BrandId = 3,
-                Discount = faker.Random.Decimal(0, 10),
+                //Discount = faker.Random.Decimal(0, 10),
                 Price = faker.Finance.Amount(10, 1000),
+                ImagePath = faker.Image.LoremPixelUrl(),
+                IsNew = true,
+                Size = "M",
+                Color = faker.Commerce.Color(),
+                Length = 15.3m,
+                ClothesType = "Nem",
+                ArmType = "Nem2",
                 CreatedDate = DateTime.Now,
-                IsDeleted = false,
+                IsDeleted = false
             };
 
             builder.HasData(product1, product2);

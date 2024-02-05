@@ -24,8 +24,6 @@ namespace IDrobeAPI.Application.Exceptions
             }
         }
 
-        //todo log yazdirmag
-        //todo burani her error gore method yazaraq handle elemek nArchitecture kimi
         private static Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
             int statusCode = GetStatusCode(exception);

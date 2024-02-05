@@ -21,6 +21,7 @@ namespace IDrobeAPI.Domain.Entities
         // Relation
         public string UserId { get; set; }
         public virtual AppUser User { get; set; }
+
         public int ProductId { get; set; }
         public virtual Product Product { get; set; }
     }

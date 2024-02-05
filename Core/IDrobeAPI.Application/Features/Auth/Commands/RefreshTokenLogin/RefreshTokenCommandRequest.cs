@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Features.Auth.Rules;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
@@ -35,7 +36,9 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.RefreshTokenLogin
         private readonly AuthRules authRules;
         private readonly UserManager<AppUser> userManager;
         private readonly ITokenService tokenService;
-        public RefreshTokenCommandHandler(ICustomMapper mapper, AuthRules authRules, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, ITokenService tokenService) : base(mapper, unitOfWork, httpContextAccessor)
+        //private readonly ICustomMapper customMapper;
+
+        public RefreshTokenCommandHandler(IMapper mapper, AuthRules authRules, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, UserManager<AppUser> userManager, ITokenService tokenService) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.authRules = authRules;
             this.userManager = userManager;

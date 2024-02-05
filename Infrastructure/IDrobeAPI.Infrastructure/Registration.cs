@@ -2,6 +2,7 @@
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Beheviors;
 using IDrobeAPI.Application.Exceptions;
+using IDrobeAPI.Application.Interfaces.IResponses;
 using IDrobeAPI.Application.Interfaces.ITokens;
 using IDrobeAPI.Infrastructure.Implementation.Tokens;
 using IDrobeAPI.Infrastructure.Models;
@@ -26,6 +27,10 @@ namespace IDrobeAPI.Infrastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT")); //option patter
             services.AddTransient<ITokenService, TokenService>();
+
+            //responseModels
+            //services.AddScoped(typeof(IGenericActionResponse<>),typeof(GenericActionResponse<>));
+            //services.AddScoped<IActionResponse, ActionResponse>();
 
             services.AddAuthentication(opt =>
             {

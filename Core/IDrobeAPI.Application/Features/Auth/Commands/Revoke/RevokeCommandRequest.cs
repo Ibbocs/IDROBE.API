@@ -1,7 +1,7 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Features.Auth.Rules;
-using IDrobeAPI.Application.Interfaces.IAutoMapper;
 using IDrobeAPI.Application.Interfaces.IUnitOfWorks;
 using IDrobeAPI.Domain.Identity;
 using MediatR;
@@ -35,7 +35,7 @@ namespace IDrobeAPI.Application.Features.Auth.Commands.Revoke
         private readonly UserManager<AppUser> userManager;
         private readonly AuthRules authRules;
 
-        public RevokeCommandHandler(UserManager<AppUser> userManager, AuthRules authRules, ICustomMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
+        public RevokeCommandHandler(UserManager<AppUser> userManager, AuthRules authRules, IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
         {
             this.userManager = userManager;
             this.authRules = authRules;
