@@ -40,7 +40,7 @@ namespace IDrobeAPI.Application.Features.Categories.Commands.DeleteCategories
 
             response.RequestSuccessful = true;
             response.ResponseCode = System.Net.HttpStatusCode.OK;
-            response.Message = $" {deletedData.Name} {CategoryResponseMessageConstants.successfullyDeleted}";
+            response.Message = $" {deletedData.CategoryName} {CategoryResponseMessageConstants.successfullyDeleted}";
 
             return response;
         }

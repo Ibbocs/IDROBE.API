@@ -28,7 +28,7 @@ public class UpdateCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateC
     {
         ActionResponse response = new ActionResponse(false, System.Net.HttpStatusCode.BadRequest, "Bad Request");
 
-        Category oldData = await unitOfWork.GetReadRepository<Category>().GetSingleAsync(id=> id.Id == request.Id, enableTracking:true);//todo burda tracikg true olmalidi axi
+        Category oldData = await unitOfWork.GetReadRepository<Category>().GetSingleAsync(id=> id.Id == request.Id, enableTracking:true);
         //category var/yox
         _categoryRules.CategoryShouldExistWhenRequested(oldData);
 
@@ -46,7 +46,7 @@ public class UpdateCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateC
 
         response.RequestSuccessful = true;
         response.ResponseCode = System.Net.HttpStatusCode.OK;
-        response.Message = $"{oldData.Name} {CategoryResponseMessageConstants.successfullyUpdated}";//todo burda teze name de ola bilerdi - UpdateCategoryCommandHandler
+        response.Message = $"{oldData.CategoryName} {CategoryResponseMessageConstants.successfullyUpdated}";//todo burda teze name de ola bilerdi - UpdateCategoryCommandHandler
 
         return response;
     }

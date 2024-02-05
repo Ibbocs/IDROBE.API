@@ -5,10 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDrobeAPI.Application.Features.Categories.Models
+namespace IDrobeAPI.Application.Features.Categories.Models;
+
+public class CategoryListViewModel
 {
-    public class CategoryListViewModel
-    {
-        public IList<CategoryGetDto> Items { get; set; }
-    }
+    public IList<CategoryGetDto> Items { get; set; }
 }

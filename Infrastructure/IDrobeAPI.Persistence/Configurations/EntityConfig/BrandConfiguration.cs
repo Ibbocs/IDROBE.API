@@ -14,7 +14,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
     {
         public void Configure(EntityTypeBuilder<Brand> builder)
         {
-            builder.Property(x => x.Name).HasMaxLength(256).IsRequired();
+            builder.Property(x => x.BrandName).HasMaxLength(256).IsRequired();
             builder.Property(x => x.BrandType).HasMaxLength(30).IsRequired();
 
             Faker faker = new("en");
@@ -22,7 +22,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Brand brand1 = new()
             {
                 Id = 1,
-                Name = faker.Commerce.Department(),
+                BrandName = faker.Commerce.Department(),
                 BrandType = "Stores",
                 CreatedDate = DateTime.Now,
                 ImagePath = "/hjhsja",
@@ -33,7 +33,7 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Brand brand2 = new()
             {
                 Id = 2,
-                Name = faker.Commerce.Department(),
+                BrandName = faker.Commerce.Department(),
                 BrandType = "Stores",
                 ImagePath = "/jhkl",
                 Description = faker.Commerce.ProductDescription(),
@@ -44,8 +44,8 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
             Brand brand3 = new()
             {
                 Id = 3,
-                Name = faker.Commerce.Department(),
-                BrandType = "Brends",
+                BrandName = faker.Commerce.Department(),
+                BrandType = "Brands",
                 ImagePath = "/jjlkl",
                 Description = faker.Commerce.ProductDescription(),
                 CreatedDate = DateTime.Now,
