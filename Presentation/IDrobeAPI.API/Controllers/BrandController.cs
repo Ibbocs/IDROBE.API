@@ -10,53 +10,53 @@ using IDrobeAPI.Application.Features.Brands.Queries.GetByIdBrand;
 
 namespace IDrobeAPI.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/brand/")]
     [ApiController]
     public class BrandController : BaseController
     {
-        [HttpGet("[action]")]
+        [HttpGet("get-all-brand")]
         public async Task<IActionResult> GetAllBrand()
         {
             var data = await _mediator.Send(new GetAllBrandQueryRequest());
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]/{Id}")]
+        [HttpGet("get-by-id-brand/{Id}")]
         public async Task<IActionResult> GetByIdBrand([FromRoute] GetBrandByIdQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-by-pagination-brand")]
         public async Task<IActionResult> GetByPaginationBrand([FromQuery] GetBrandByPaginationQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("get-by-dynamic-brand")]
         public async Task<IActionResult> GetByDynamicBrand([FromBody] GetBrandByDynamicQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("create-brand")]
         public async Task<IActionResult> CreateBrand([FromBody] CreateBrandCommandRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPut("[action]")]
+        [HttpPut("update-brand")]
         public async Task<IActionResult> UpdateBrand([FromBody] UpdateBrandCommandRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpDelete("[action]")]
+        [HttpDelete("delete-brand")]
         public async Task<IActionResult> DeleteBrand([FromBody] DeleteBrandCommandRequest request)
         {
             var data = await _mediator.Send(request);
