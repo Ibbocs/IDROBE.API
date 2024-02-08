@@ -15,7 +15,7 @@ namespace IDrobeAPI.API.Controllers
     public class BrandController : BaseController
     {
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetBrand()
+        public async Task<IActionResult> GetAllBrand()
         {
             var data = await _mediator.Send(new GetAllBrandQueryRequest());
             return StatusCode((int)data.ResponseCode, data);

@@ -27,19 +27,23 @@ public interface IReadRepository<T> : IRepository<T> where T : EntityBase, IEnti
         Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
         bool enableTracking = false, bool isDeleted = false);
 
-    IQueryable<T> FindQuery(Expression<Func<T, bool>> predicate, bool enableTracking = false, bool isDeleted = false);
+    IQueryable<T> FindQuery(Expression<Func<T, bool>> predicate, bool enableTracking = false, 
+        bool isDeleted = false);
 
     Task<int> CountAsync(Expression<Func<T, bool>>? predicate = null, bool isDeleted = false);
 
     Task<IPaginate<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null,
                                Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
                                Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                               int index = 0, int size = 10, bool enableTracking = false,
+                               int index = 0, int size = 10, bool enableTracking = false, 
+                               bool isDeleted = false,
                                CancellationToken cancellationToken = default);
 
     Task<IPaginate<T>> GetListByDynamicAsync(Dynamic dynamic,
-                                        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                        int index = 0, int size = 10, bool enableTracking = false,
+                                        Func<IQueryable<T>, 
+                                        IIncludableQueryable<T, object>>? include = null,
+                                        int index = 0, int size = 10, bool enableTracking = false, 
+                                        bool isDeleted = false,
                                         CancellationToken cancellationToken = default);
 
     //getbyid de yazmaq olar amma getsibgle o isi gorur

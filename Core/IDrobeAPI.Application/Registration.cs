@@ -3,7 +3,6 @@ using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Beheviors;
 using IDrobeAPI.Application.Exceptions;
 using IDrobeAPI.Application.Exceptions.Middlewares;
-using IDrobeAPI.Application.Features.Products.Commands.CreateProduct;
 using IDrobeAPI.Application.Features.Products.Rules;
 using IDrobeAPI.Application.Interfaces.IResponses;
 using IDrobeAPI.Application.Models.Responses;

@@ -36,7 +36,7 @@ public class UpdateCategoryCommandHandler : BaseHandler, IRequestHandler<UpdateC
 
         _categoryRules.EntityCanNotBeNull(newData);
 
-        bool result = unitOfWork.GetWriteRepository<Category>().UpdateAsync(newData);
+        bool result = unitOfWork.GetWriteRepository<Category>().Update(newData);
         //update olmagi
         _categoryRules.CategoryResultProblem(result);
 

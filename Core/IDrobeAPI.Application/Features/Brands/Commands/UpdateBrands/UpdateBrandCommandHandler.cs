@@ -37,7 +37,7 @@ public class UpdateBrandCommandHandler : BaseHandler, IRequestHandler<UpdateBran
 
         _brandRules.EntityCanNotBeNull(newData);
 
-        bool result = unitOfWork.GetWriteRepository<Brand>().UpdateAsync(newData);
+        bool result = unitOfWork.GetWriteRepository<Brand>().Update(newData);
         //update olmagi
         _brandRules.BrandResultProblem(result);
 

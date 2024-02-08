@@ -33,7 +33,7 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Table.AddRangeAsync(entities);
         }
 
-        public bool UpdateAsync(T entity)
+        public bool Update(T entity)
         {
             //await Task.Run(()
             //    =>
@@ -53,7 +53,7 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Task.Run(() => { Table.UpdateRange(entities); });
         }
 
-        public bool HardDeleteAsync(T entity)
+        public bool HardDelete(T entity)
         {
             EntityEntry<T> entityEntry = Table.Remove(entity);
             return entityEntry.State == EntityState.Deleted;
@@ -64,7 +64,7 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             await Task.Run(() => { Table.RemoveRange(entities); });
         }
 
-        public bool SoftDeleteAsync(T entity)
+        public bool SoftDelete(T entity)
         {
             //EntityEntry<T> entityEntry = null;
             //entity.IsDeleted = true;

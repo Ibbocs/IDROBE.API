@@ -32,7 +32,7 @@ namespace IDrobeAPI.Application.Features.Categories.Commands.DeleteCategories
             Category deletedData= await unitOfWork.GetReadRepository<Category>().GetSingleAsync(id=>id.Id==request.Id, enableTracking:true); //todo repoda bulari task.Run cixard
             _categoryRules.CategoryShouldExistWhenRequested(deletedData);
 
-            bool result = unitOfWork.GetWriteRepository<Category>().HardDeleteAsync(deletedData);
+            bool result = unitOfWork.GetWriteRepository<Category>().HardDelete(deletedData);
             _categoryRules.CategoryResultProblem(result);
 
             int rowAffect = await unitOfWork.SaveAsync();
@@ -40,7 +40,7 @@ namespace IDrobeAPI.Application.Features.Categories.Commands.DeleteCategories
 
             response.RequestSuccessful = true;
             response.ResponseCode = System.Net.HttpStatusCode.OK;
-            response.Message = $" {deletedData.CategoryName} {CategoryResponseMessageConstants.successfullyDeleted}";
+            response.Message = $"{deletedData.CategoryName} {CategoryResponseMessageConstants.successfullyDeleted}";
 
             return response;
         }

@@ -21,9 +21,6 @@
     <Folder Include="Features\Auth\DTOs\" />
     <Folder Include="Features\Auth\Model\" />
     <Folder Include="Features\Auth\Queries\" />
-    <Folder Include="Features\Products\DTOs\" />
-    <Folder Include="Features\Products\Constants\" />
-    <Folder Include="Features\Products\Model\" />
   </ItemGroup>
 
   <ItemGroup>

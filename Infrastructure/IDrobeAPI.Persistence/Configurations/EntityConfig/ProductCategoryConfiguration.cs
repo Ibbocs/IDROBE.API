@@ -15,6 +15,12 @@ namespace IDrobeAPI.Persistence.Configurations.EntityConfig
         {
             builder.Property(x=>x.ProductId).IsRequired();
             builder.Property(x=>x.CategoryId).IsRequired();
+            builder.Ignore(x => x.IsDeleted);
+            builder.Ignore(x => x.UpdateDate);
+            builder.Ignore(x => x.CreatedDate);
+            builder.Ignore(x => x.Id);
+
+
 
             builder.HasKey(x => new { x.ProductId, x.CategoryId });
 
