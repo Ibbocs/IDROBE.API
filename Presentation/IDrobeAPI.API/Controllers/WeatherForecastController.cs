@@ -1,16 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using IDrobeAPI.Application.Features.Products.Commands.CreateProduct;
 using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
-using Microsoft.AspNetCore.Authorization;
-using IDrobeAPI.Application.Interfaces.IPagination;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
-using AutoMapper;
-using IDrobeAPI.Application.Features.Brands.DTOs;
-using IDrobeAPI.Domain.Entities;
-using IDrobeAPI.Application.Models.PaginationModels;
-using IDrobeAPI.Persistence.Implementation.Paginations;
-using IDrobeAPI.Application.Models.DynamicQueriesModels;
 
 namespace IDrobeAPI.API.Controllers
 {
@@ -65,12 +56,12 @@ namespace IDrobeAPI.API.Controllers
 
             return Ok(response);
         }
-        [HttpPost]
-        public async Task<IActionResult> CreateProduct(CreateProductCommandRequest request)
-        {
-            await _mediator.Send(request);
-            return Ok();
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> CreateProduct(CreateProductCommandRequest request)
+        //{
+        //    await _mediator.Send(request);
+        //    return Ok();
+        //}
 
         //[HttpGet("[action]")]
         //public async Task<WeatherListVM> Index([FromQuery] PageRequest request)

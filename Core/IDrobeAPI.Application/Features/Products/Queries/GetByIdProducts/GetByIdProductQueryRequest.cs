@@ -7,9 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
+namespace IDrobeAPI.Application.Features.Products.Queries.GetByIdProducts;
 
-public class GetAllProductsQueryRequest : IRequest<GenericActionResponse<ProductListViewModel>>
+public class GetByIdProductQueryRequest: IRequest<GenericActionResponse<ProductSingleViewModel>>
 {
+    public int Id { get; set; }
     public bool isDeleted { get; set; } = false;
+
 }

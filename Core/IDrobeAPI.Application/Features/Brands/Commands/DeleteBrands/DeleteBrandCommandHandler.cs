@@ -32,7 +32,7 @@ public class DeleteBrandCommandHandler : BaseHandler, IRequestHandler<DeleteBran
         Brand deletedData = await unitOfWork.GetReadRepository<Brand>().GetSingleAsync(id => id.Id == request.Id, enableTracking: true);
         _brandRules.BrandShouldExistWhenRequested(deletedData);
 
-        bool result = unitOfWork.GetWriteRepository<Brand>().HardDeleteAsync(deletedData);
+        bool result = unitOfWork.GetWriteRepository<Brand>().HardDelete(deletedData);
         _brandRules.BrandResultProblem(result);
 
         int rowAffect = await unitOfWork.SaveAsync();
@@ -40,7 +40,7 @@ public class DeleteBrandCommandHandler : BaseHandler, IRequestHandler<DeleteBran
 
         response.RequestSuccessful = true;
         response.ResponseCode = System.Net.HttpStatusCode.OK;
-        response.Message = $" {deletedData.BrandName} {BrandResponseMessageConstants.successfullyDeleted}";
+        response.Message = $"{deletedData.BrandName} {BrandResponseMessageConstants.successfullyDeleted}";
 
         return response;
     }

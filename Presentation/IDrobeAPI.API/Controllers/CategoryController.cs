@@ -17,7 +17,7 @@ namespace IDrobeAPI.API.Controllers
     {
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> GetCategory(/*GetAllCategoryQueryRequest request*/)
+        public async Task<IActionResult> GetAllCategory(/*GetAllCategoryQueryRequest request*/)
         {
             var data = await _mediator.Send(new GetAllCategoryQueryRequest());
             return StatusCode((int)data.ResponseCode, data);
