@@ -11,54 +11,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IDrobeAPI.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/category/")]
     [ApiController]
     public class CategoryController : BaseController
     {
 
-        [HttpGet("[action]")]
+        [HttpGet("get-all-category")]
         public async Task<IActionResult> GetAllCategory(/*GetAllCategoryQueryRequest request*/)
         {
             var data = await _mediator.Send(new GetAllCategoryQueryRequest());
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]/{Id}")]
+        [HttpGet("get-by-id-category/{Id}")]
         public async Task<IActionResult> GetByIdCategory([FromRoute]GetByIdCategoryQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-by-pagination-category")]
         public async Task<IActionResult> GetByPaginationCategory([FromQuery] GetByPaginationCategoryQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("get-by-dynamic-category")]
         public async Task<IActionResult> GetByDynamicCategory([FromBody] GetListCategoryByDynamicQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("create-category")]
         public async Task<IActionResult> CreateCategory([FromBody]CreateCategoryCommandRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPut("[action]")]
+        [HttpPut("update-category")]
         public async Task<IActionResult> UpdateCategory([FromBody] UpdateCategoryCommandRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpDelete("[action]")]
+        [HttpDelete("delete-category")]
         public async Task<IActionResult> DeleteCategory([FromBody] DeleteCategoryCommandRequest request)
         {
             var data = await _mediator.Send(request);

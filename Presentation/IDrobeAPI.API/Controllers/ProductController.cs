@@ -1,9 +1,4 @@
-﻿using Bogus.DataSets;
-using IDrobeAPI.Application.Features.Brands.Commands.DeleteBrands;
-using IDrobeAPI.Application.Features.Brands.Queries.GetAllBrandDynamic;
-using IDrobeAPI.Application.Features.Brands.Queries.GetByIdBrand;
-using IDrobeAPI.Application.Features.Categories.Queries.GetAllCategoryPaginations;
-using IDrobeAPI.Application.Features.Products.Commands.DeleteProducts;
+﻿using IDrobeAPI.Application.Features.Products.Commands.DeleteProducts;
 using IDrobeAPI.Application.Features.Products.Commands.ProductCreatings;
 using IDrobeAPI.Application.Features.Products.Commands.UpdateProducts;
 using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
@@ -15,46 +10,46 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IDrobeAPI.API.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/product/")]
     [ApiController]
     public class ProductController : BaseController
     {
-        [HttpGet]
+        [HttpGet("get-all-product")]
         public async Task<IActionResult> GetAllProducts([FromQuery] GetAllProductsQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-by-id-product")]
         public async Task<IActionResult> GetByIdProduct([FromQuery] GetByIdProductQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpGet("[action]")]
+        [HttpGet("get-by-pagination-product")]
         public async Task<IActionResult> GetByPaginationProduct([FromQuery]GetByPaginationProductsQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("get-by-dynamic-product")]
         public async Task<IActionResult> GetByDynamicProduct([FromBody] GetByDynamicProductsQueryRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPost]
+        [HttpPost("create-product")]
         public async Task<IActionResult> CreateProduct([FromBody] ProductCreateCommandRequest request)
         {
             var data = await _mediator.Send(request);
             return StatusCode((int)data.ResponseCode, data);
         }
 
-        [HttpPut("[action]")]
+        [HttpPut("update-product")]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommandRequest request)
         {
             var data = await _mediator.Send(request);
@@ -62,7 +57,7 @@ namespace IDrobeAPI.API.Controllers
         }
 
 
-        [HttpDelete("[action]")]
+        [HttpDelete("delete-product")]
         public async Task<IActionResult> DeleteProduct([FromBody] DeleteProductCommandRequest request)
         {
             var data = await _mediator.Send(request);
