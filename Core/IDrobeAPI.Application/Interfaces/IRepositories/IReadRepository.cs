@@ -47,4 +47,12 @@ public interface IReadRepository<T> : IRepository<T> where T : EntityBase, IEnti
                                         CancellationToken cancellationToken = default);
 
     //getbyid de yazmaq olar amma getsibgle o isi gorur
+
+    //public IQueryable<T> FindByDynamicQueryAsync(Dynamic dynamic, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, int index = 0, int size = 10, bool enableTracking = false, bool isDeleted = false, CancellationToken cancellationToken = default);
+
+    //public Task<IPaginate<T>> GetByDynamicAsPaginationAsync(IQueryable<T> queryable, int index = 0, int size = 10, CancellationToken cancellationToken = default);
+
+    //public IQueryable<T> AddNewDynamicQueryAsync(Dynamic dynamic, IQueryable<T> queryable);
+
+
 }

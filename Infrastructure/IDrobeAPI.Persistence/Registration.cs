@@ -1,7 +1,9 @@
-﻿using IDrobeAPI.Application.Interfaces.IUnitOfWorks;
+﻿using IDrobeAPI.Application.Interfaces.IPagination;
+using IDrobeAPI.Application.Interfaces.IUnitOfWorks;
 using IDrobeAPI.Application.Interfaces.Repositories;
 using IDrobeAPI.Domain.Identity;
 using IDrobeAPI.Persistence.Context;
+using IDrobeAPI.Persistence.Implementation.Paginations;
 using IDrobeAPI.Persistence.Implementation.Repositories;
 using IDrobeAPI.Persistence.Implementation.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
@@ -49,6 +51,7 @@ namespace IDrobeAPI.Persistence
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            services.AddScoped(typeof(Paginate<>), typeof(IPaginate<>));
         }
 
         private static void RegisterRepositories(IServiceCollection services)

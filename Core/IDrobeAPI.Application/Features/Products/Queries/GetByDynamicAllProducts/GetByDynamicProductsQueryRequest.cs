@@ -15,6 +15,7 @@ public class GetByDynamicProductsQueryRequest :
  IRequest<GenericActionResponse<ProductPaginationListViewModel>>
 {
     public Dynamic Dynamic { get; set; }
+    public int[] CategoryIds { get; set; }
     public PageRequest PageRequest { get; set; }
     public bool isDeleted { get; set; } = false;
 }
