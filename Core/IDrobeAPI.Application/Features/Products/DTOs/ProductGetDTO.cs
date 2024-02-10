@@ -25,7 +25,7 @@ public class ProductGetDTO
     public string ArmType { get; set; }
     //bunun adin Brand yazmagimin sebebi mapper basa dusun deyedi, entity icindeki ile eyni olmalidi
     public BrandGetDto Brand { get; set; }
-    public IList<CategoryGetDto> ProductCategories { get; set; }
+    public IList<CategoryGetDto> Category { get; set; }
 }
 
 public class ProductCategoryGetDTO

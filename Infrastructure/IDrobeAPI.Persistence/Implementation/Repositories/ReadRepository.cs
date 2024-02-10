@@ -6,12 +6,15 @@ using IDrobeAPI.Persistence.Context;
 using IDrobeAPI.Persistence.Extentions.DynamicQueryExtentions;
 using IDrobeAPI.Persistence.Extentions.PaginationExtentions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace IDrobeAPI.Persistence.Implementation.Repositories
@@ -115,6 +118,25 @@ namespace IDrobeAPI.Persistence.Implementation.Repositories
             return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
         }
 
-       
+        //public IQueryable<T> FindByDynamicQueryAsync(Dynamic dynamic, Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null, int index = 0, int size = 10, bool enableTracking = false, bool isDeleted = false, CancellationToken cancellationToken = default)
+        //{
+        //    IQueryable<T> queryable = Query().AsQueryable().ToDynamic(dynamic);
+        //    if (!enableTracking) queryable = queryable.AsNoTracking();
+        //    if (isDeleted) queryable = queryable.IgnoreQueryFilters();
+        //    if (include != null) queryable = include(queryable);
+        //    return queryable;
+        //}
+
+        //public IQueryable<T> AddNewDynamicQueryAsync(Dynamic dynamic, IQueryable<T> queryable)
+        //{
+        //    return queryable.ToDynamic(dynamic);
+        //}
+
+        //public async Task<IPaginate<T>> GetByDynamicAsPaginationAsync(IQueryable<T> queryable, int index = 0, int size = 10, CancellationToken cancellationToken = default)
+        //{
+        //    return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
+        //}
+
+
     }
 }

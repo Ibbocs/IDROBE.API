@@ -41,6 +41,7 @@ public class GetByDynamicProductsQueryHandler : BaseHandler,
                 index: request.PageRequest.Page, size: request.PageRequest.PageSize, isDeleted: true,
                 include: p => p.Include(pc => pc.ProductCategories).ThenInclude(pc => pc.Category)
                 .Include(b => b.Brand));
+
         }
         else
         {
@@ -50,7 +51,15 @@ public class GetByDynamicProductsQueryHandler : BaseHandler,
                 .Include(b => b.Brand));
         }
 
-        var mappedData = mapper.Map<ProductPaginationListViewModel>(data);
+
+
+        // Filtrelenmiş category ID'lerine sahip product seç
+        var filteredProductsNew = data.Items
+            .Where(p => p.ProductCategories.Any(pc => request.CategoryIds.Contains(pc.CategoryId)));
+
+        IPaginate<Product> pro = new Paginate<Product>(filteredProductsNew, request.PageRequest.Page, request.PageRequest.PageSize, 0);
+
+        var mappedData = mapper.Map<ProductPaginationListViewModel>(pro);
 
         response.Data = mappedData;
         response.RequestSuccessful = true;

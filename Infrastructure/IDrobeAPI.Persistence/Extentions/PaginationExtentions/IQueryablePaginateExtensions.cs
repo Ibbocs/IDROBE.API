@@ -20,7 +20,7 @@ namespace IDrobeAPI.Persistence.Extentions.PaginationExtentions
             int count = await source.CountAsync(cancellationToken).ConfigureAwait(false);
             List<T> items = await source.Skip((index - from) * size).Take(size).ToListAsync(cancellationToken)
                                         .ConfigureAwait(false);
-            Paginate<T> list = new()
+            Application.Interfaces.IPagination.Paginate<T> list = new()
             {
                 Index = index,
                 Size = size,
@@ -40,7 +40,7 @@ namespace IDrobeAPI.Persistence.Extentions.PaginationExtentions
 
             int count = source.Count();
             List<T> items = source.Skip((index - from) * size).Take(size).ToList();
-            Paginate<T> list = new()
+            Application.Interfaces.IPagination.Paginate<T> list = new()
             {
                 Index = index,
                 Size = size,

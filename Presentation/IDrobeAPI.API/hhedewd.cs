@@ -134,3 +134,14 @@ public class BrandGetDto
     public DateTime UpdateDate { get; set; }
     //burda inculud elesem eger hansisa entity dtosun, onda entity adin yazmaliyam mapper gore
 }
+
+public class CategoryGetDto
+{
+    public int Id { get; set; }
+    public int ParentId { get; set; }
+    public string CategoryName { get; set; }
+    public int Priorty { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public DateTime UpdateDate { get; set; }
+    //burda inculud elesem eger hansisa entity dtosun, onda entity adin yazmaliyam mapper gore
+}
