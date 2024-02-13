@@ -22,6 +22,7 @@ public static class ProductValidationMessageConstants
 
     public const string categoryId = "At least one CategoryId must be provided.";
     public const string categoryIdGreater = "Category Id must be greater than 0";
+    public const string categoryIds = "The Category Ids field must either be null or contain at least one number which must be greater than 0.";
 
     public const string page = "Page must be greater than or equal to 0";
     public const string pageSize = "Page Size must be greater than or equal to 0";

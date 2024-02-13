@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
+using IDrobeAPI.Application.Interfaces.IMails;
+using IDrobeAPI.Application.Models.Mails;
 
 namespace IDrobeAPI.API.Controllers
 {
@@ -18,8 +20,9 @@ namespace IDrobeAPI.API.Controllers
         private readonly IMediator _mediator;
         private List<WeatherForecast> _forecasts;
         private ICustomMapper _customMapper;
+        private IMailService _mailService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator, ICustomMapper customMapper)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator, ICustomMapper customMapper, IMailService mailService)
         {
             _logger = logger;
             _mediator = mediator;
@@ -35,6 +38,7 @@ namespace IDrobeAPI.API.Controllers
 
                 });
             }
+            _mailService = mailService;
         }
 
         //[HttpGet(Name = "GetWeatherForecast")]
@@ -56,6 +60,13 @@ namespace IDrobeAPI.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpPost]
+        public void SendMail([FromBody]Mail model)
+        {
+            _mailService.SendMail(model);
+        }
+
         //[HttpPost]
         //public async Task<IActionResult> CreateProduct(CreateProductCommandRequest request)
         //{

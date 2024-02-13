@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace IDrobeAPI.Application.Features.Products.Queries.GetByDynamicAllProducts;
 
-public class GetByDynamicProductsQueryValidator:AbstractValidator<GetByDynamicProductsQueryRequest>
+public class GetByDynamicProductsQueryValidator : AbstractValidator<GetByDynamicProductsQueryRequest>
 {
     public GetByDynamicProductsQueryValidator()
     {
@@ -23,5 +23,11 @@ public class GetByDynamicProductsQueryValidator:AbstractValidator<GetByDynamicPr
         RuleFor(request => request.Dynamic)
             .NotNull()
             .WithMessage(ProductValidationMessageConstants.dynamic).WithName("Dynamic Object");
+
+        RuleFor(x => x.CategoryIds)
+            .Cascade(CascadeMode.Stop)
+            .Must(ids => ids == null || (ids.Length > 0 && ids.All(id => id > 0)))
+            .WithMessage(ProductValidationMessageConstants.categoryIds).WithName("Product Category Ids");
+
     }
 }
