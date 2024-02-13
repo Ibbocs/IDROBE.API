@@ -53,13 +53,17 @@ public class GetByDynamicProductsQueryHandler : BaseHandler,
 
 
 
-        // Filtrelenmiş category ID'lerine sahip product seç
-        var filteredProductsNew = data.Items
-            .Where(p => p.ProductCategories.Any(pc => request.CategoryIds.Contains(pc.CategoryId)));
+        if (request.CategoryIds != null)
+        {
+            // Filtrelenmiş category ID'lerine sahip product seç
+            var filteredProductsNew = data.Items
+                .Where(p => p.ProductCategories.Any(pc => request.CategoryIds.Contains(pc.CategoryId)));
 
-        IPaginate<Product> pro = new Paginate<Product>(filteredProductsNew, request.PageRequest.Page, request.PageRequest.PageSize, 0);
+            data = new Paginate<Product>(filteredProductsNew, request.PageRequest.Page, request.PageRequest.PageSize, 0);
+        }
+       
 
-        var mappedData = mapper.Map<ProductPaginationListViewModel>(pro);
+        var mappedData = mapper.Map<ProductPaginationListViewModel>(data);
 
         response.Data = mappedData;
         response.RequestSuccessful = true;

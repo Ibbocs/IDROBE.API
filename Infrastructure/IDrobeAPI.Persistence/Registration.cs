@@ -51,7 +51,7 @@ namespace IDrobeAPI.Persistence
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped(typeof(Paginate<>), typeof(IPaginate<>));
+            //services.AddScoped(typeof(Application.Interfaces.IPagination.Paginate<>), typeof(IPaginate<>));
         }
 
         private static void RegisterRepositories(IServiceCollection services)

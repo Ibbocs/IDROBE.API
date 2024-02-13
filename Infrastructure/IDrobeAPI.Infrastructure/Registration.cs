@@ -1,4 +1,6 @@
-﻿using IDrobeAPI.Application.Interfaces.ITokens;
+﻿using IDrobeAPI.Application.Interfaces.IMails;
+using IDrobeAPI.Application.Interfaces.ITokens;
+using IDrobeAPI.Infrastructure.Implementation.Mails;
 using IDrobeAPI.Infrastructure.Implementation.Tokens;
 using IDrobeAPI.Infrastructure.Models;
 using MediatR;
@@ -22,6 +24,9 @@ namespace IDrobeAPI.Infrastructure
         {
             services.Configure<TokenSettings>(configuration.GetSection("JWT")); //option patter
             services.AddTransient<ITokenService, TokenService>();
+
+            //Mail service
+            services.AddTransient<IMailService, MailKitMailService>();
 
             //responseModels Paginate<T> : IPaginate<T>
             //services.AddScoped(typeof(IGenericActionResponse<>),typeof(GenericActionResponse<>));
