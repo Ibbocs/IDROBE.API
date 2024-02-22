@@ -1,147 +1,108 @@
-﻿using IDrobeAPI.Application.Features.Brands.DTOs;
-using IDrobeAPI.Application.Models.Responses;
-using IDrobeAPI.Domain.Common;
-using IDrobeAPI.Domain.Entities;
-using MediatR;
+﻿//using IDrobeAPI.Application.Models.Mails;
+//using IDrobeAPI.Application.Models.Responses;
+//using IDrobeAPI.Application.Services.SendQueryServices;
+//using MimeKit;
 
-namespace IDrobeAPI.API;
+//public class MailKitMailService : IMailService
+//{
+//    private IConfiguration _configuration;
+//    private readonly MailSettings _mailSettings;
 
-public class Product : EntityBase, ISoftDeleteAble
-{
+//    public MailKitMailService(IConfiguration configuration)
+//    {
+//        _configuration = configuration;
+//        _mailSettings = _configuration.GetSection("MailSettings").Get<MailSettings>();
+//    }
 
-    public Product()
-    {
+//    public void SendMail(Mail mail)
+//    {
+//        MimeMessage email = new();
 
-    }
+//        email.From.Add(new MailboxAddress(_mailSettings.SenderFullName, _mailSettings.SenderEmail));//gonderen email.From = MailboxAddress.Parse(_mailSettings.SenderEmail); kimi de yazmaq olardi tek tek
 
-    public Product(string title, string description, int brandId, decimal price, string ımagePath, bool ısNew, string size, string color, decimal length, string clothesType, string armType) : this()
-    {
-        Title = title;
-        Description = description;
-        BrandId = brandId;
-        Price = price;
-        ImagePath = ımagePath;
-        IsNew = ısNew;
-        Size = size;
-        Color = color;
-        Length = length;
-        ClothesType = clothesType;
-        ArmType = armType;
+//        email.To.Add(new MailboxAddress(mail.ToFullName, mail.ToEmail));//alici
 
-        //Discount = discount;
-        //StockQuantity = stockQuantity;
-    }
+//        email.Subject = mail.Subject;//movzu/basliq
 
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public decimal Price { get; set; }
-    public string ImagePath { get; set; }
-    public bool IsNew { get; set; }
-    public string Size { get; set; }
-    public string Color { get; set; }
-    public decimal Length { get; set; }
-    public string ClothesType { get; set; }
-    public string ArmType { get; set; }
+//        BodyBuilder bodyBuilder = new()
+//        {
+//            TextBody = mail.TextBody,//body mailin icerisidir. html destekleyen stmp serverde html esas gotrulur, desteklenmeyen yerde ise text body qoyulur.
+//            HtmlBody = mail.HtmlBody
+//        };
 
-    //public decimal Discount { get; set; }
-    //public int StockQuantity { get; set; }
+//        if (mail.Attachments != null) //file elave elemek maile
+//            foreach (MimeEntity? attachment in mail.Attachments)
+//                bodyBuilder.Attachments.Add(attachment);
 
-    public int BrandId { get; set; }
-    public virtual Brand Brand { get; set; }
+//        email.Body = bodyBuilder.ToMessageBody();
 
-    public ICollection<ProductCategory> ProductCategories { get; set; }
-    public ICollection<OrderDetails> OrderDetails { get; set; }
-    public ICollection<Favorite> Favorites { get; set; }
-    //public required string ImagePath { get; set; }
-}
+//        using MailKit.Net.Smtp.SmtpClient smtp = new();
+//        smtp.Connect(_mailSettings.Server, _mailSettings.Port);
+//        smtp.Authenticate(_mailSettings.UserName, _mailSettings.Password);
+//        smtp.Send(email);
+//        smtp.Disconnect(true);
+//    }
+//}
 
-public class ProductCategory : IEntityBaseAble
-{
-    //productun birden cox categorysi ola biler. Messelen bir komp hem komp hem de electronics kategorisinde ola biler
-    public ProductCategory()
-    {
+//public class Mail
+//{
+//    public string Subject { get; set; }
+//    public string TextBody { get; set; }
+//    public string HtmlBody { get; set; }
+//    public MimeKit.AttachmentCollection? Attachments { get; set; }
+//    public string ToFullName { get; set; }
+//    public string ToEmail { get; set; }
 
-    }
+//    public Mail()
+//    {
+//    }
 
-    public ProductCategory(int productId, int categoryId) : this()
-    {
-        ProductId = productId;
-        CategoryId = categoryId;
-    }
+//    public Mail(string subject, string textBody, string htmlBody, AttachmentCollection? attachments, string toFullName,
+//                string toEmail)
+//    {
+//        Subject = subject;
+//        TextBody = textBody;
+//        HtmlBody = htmlBody;
+//        Attachments = attachments;
+//        ToFullName = toFullName;
+//        ToEmail = toEmail;
+//    }
+//}
 
-    public int ProductId { get; set; }
-    public int CategoryId { get; set; }
-    public virtual Product Product { get; set; }
-    public virtual Category Category { get; set; }
-}
+//public class SendQueryCreateDTO
+//{
+//    public string StoreName { get; set; }
+//    public string PhoneNumber { get; set; }
+//    public string Email { get; set; }
+//    public string Addres { get; set; }
+//    public FileStream StoreLogo { get; set; }
+//}
+
+//internal class SendQueryService : ISendQueryService
+//{
+//    private readonly IMailService _mailService;
+
+//    public SendQueryService(IMailService mailService)
+//    {
+//        _mailService = mailService;
+//    }
+
+//    public async Task<GenericActionResponse<bool>> SendQueryAsync(SendQueryCreateDTO model)
+//    {
+//        GenericActionResponse<bool> response = new GenericActionResponse<bool>(false, System.Net.HttpStatusCode.BadRequest, false, "Nem");
+
+//        Mail mail = new();
+//        mail.Subject = "Store Query Mail";
+//        mail.TextBody = "Test Text Body";
+//        mail.HtmlBody = "Test Html Body";
+//        mail.ToFullName = "IDrobe Support Team";
+//        mail.ToEmail = "info@idrobe.az";//todo daha yaxsi yaz
+//        mail.Attachments = model.StoreLogo.Name;
 
 
-public class Category : EntityBase
-{
-    public Category()
-    {
+//        _mailService.SendMail(mail);
 
-    }
-    public Category(int parentId, string name, int priorty) : this()
-    {
-        ParentId = parentId;
-        CategoryName = name;
-        Priorty = priorty;
-    }
-    public int ParentId { get; set; }//Electronic en boyuk categorydi 0 olur bu id, amma kompda ve printerde bu Electronic idsi olur. Sub category idare elemek olur bu sayede
-    public string CategoryName { get; set; }
-    public int Priorty { get; set; }//Electronic cat. olan kompun priorty 1 olur, amma printerin 2 meselen
-    public ICollection<CategoryDetail> Details { get; set; }
-    public ICollection<ProductCategory> ProductCategories { get; set; }
-}
 
-public class ProductGetDTO
-{
-    public int Id { get; set; }
-    public string Title { get; set; }
-    public string Description { get; set; }
-    public decimal Price { get; set; }
-    public string ImagePath { get; set; }
-    public bool IsNew { get; set; }
-    public string Size { get; set; }
-    public string Color { get; set; }
-    public decimal Length { get; set; }
-    public string ClothesType { get; set; }
-    public string ArmType { get; set; }
-    //bunun adin Brand yazmagimin sebebi mapper basa dusun deyedi, entity icindeki ile eyni olmalidi
-    public BrandGetDto Brand { get; set; }
-    public IList<ProductCategoryGetDTO> ProductCategories { get; set; }
-}
-
-public class ProductCategoryGetDTO
-{
-    public int Id { get; set; }
-    public int ParentId { get; set; }
-    public string CategoryName { get; set; }
-    public int Priorty { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdateDate { get; set; }
-}
-
-public class BrandGetDto
-{
-    public int Id { get; set; }
-    public string BrandName { get; set; }
-    public string Description { get; set; }
-    public string BrandType { get; set; }
-    public string ImagePath { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdateDate { get; set; }
-    //burda inculud elesem eger hansisa entity dtosun, onda entity adin yazmaliyam mapper gore
-}
-
-public class CategoryGetDto
-{
-    public int Id { get; set; }
-    public int ParentId { get; set; }
-    public string CategoryName { get; set; }
-    public int Priorty { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime UpdateDate { get; set; }
-    //burda inculud elesem eger hansisa entity dtosun, onda entity adin yazmaliyam mapper gore
-}
+//        return response;
+//    }
+//}

@@ -4,6 +4,9 @@ using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
 using IDrobeAPI.Application.Interfaces.IMails;
 using IDrobeAPI.Application.Models.Mails;
+using IDrobeAPI.Application.Features.SendQueries.Commands;
+using IDrobeAPI.Application.Features.SendQueries.Models;
+using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
 
 namespace IDrobeAPI.API.Controllers
 {
@@ -18,11 +21,13 @@ namespace IDrobeAPI.API.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMediator _mediator;
+        private readonly ISendQueryService _queryService;
         private List<WeatherForecast> _forecasts;
         private ICustomMapper _customMapper;
         private IMailService _mailService;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator, ICustomMapper customMapper, IMailService mailService)
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator, ICustomMapper customMapper, IMailService mailService, ISendQueryService queryService)
         {
             _logger = logger;
             _mediator = mediator;
@@ -39,6 +44,7 @@ namespace IDrobeAPI.API.Controllers
                 });
             }
             _mailService = mailService;
+            _queryService = queryService;
         }
 
         //[HttpGet(Name = "GetWeatherForecast")]
@@ -53,7 +59,7 @@ namespace IDrobeAPI.API.Controllers
         //    .ToArray();
         //}
 
-        [HttpGet]
+        [HttpGet("g1")]
         public async Task<IActionResult> GetAllProducts()//parametir almadan mediator isletmek
         {
             var response = await _mediator.Send(new GetAllProductsQueryRequest());
@@ -61,11 +67,28 @@ namespace IDrobeAPI.API.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
+        [HttpPost("po1")]
         public void SendMail([FromBody]Mail model)
         {
             _mailService.SendMail(model);
         }
+
+        [HttpPost("po2")]
+        public void SendQuery([FromQuery] SendQueryModel model)//FromForm
+        {
+            //SendQueryModel sendQueryModel = new SendQueryModel();
+            //sendQueryModel.QueryInfo = model;
+            //sendQueryModel.StoreLogo.Add(file);
+
+            var data = _queryService.SendQuery(model);
+        }
+
+        [HttpPost("po3")]
+        public void SendQueryMedi([FromForm] CreateSendQueryCommandRequest request)//FromForm
+        {
+            var data = _mediator.Send(request);
+        }
+
 
         //[HttpPost]
         //public async Task<IActionResult> CreateProduct(CreateProductCommandRequest request)

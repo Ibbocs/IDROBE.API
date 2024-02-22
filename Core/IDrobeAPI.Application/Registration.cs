@@ -1,11 +1,9 @@
 ﻿using FluentValidation;
+using FluentValidation.AspNetCore;
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Beheviors;
-using IDrobeAPI.Application.Exceptions;
 using IDrobeAPI.Application.Exceptions.Middlewares;
-using IDrobeAPI.Application.Features.Products.Rules;
-using IDrobeAPI.Application.Interfaces.IResponses;
-using IDrobeAPI.Application.Models.Responses;
+using IDrobeAPI.Application.Features.SendQueries.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,7 +31,11 @@ namespace IDrobeAPI.Application
 
             //fullent validation
             services.AddValidatorsFromAssembly(assembly);
-            //services.AddValidatorsFromAssemblyContaining(typeof(CreateProductCommandValidator));
+
+            services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateSendQueryCommandRequest>());
+            //services.AddValidatorsFromAssemblyContaining(typeof(SendQueryModelValidator));
+            //services.AddTransient<SendQueryModelValidator>();
+
             ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en-US");//mesajlarin languagesi
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehevior<,>));
 

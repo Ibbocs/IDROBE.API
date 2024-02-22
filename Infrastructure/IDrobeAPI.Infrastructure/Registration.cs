@@ -1,9 +1,10 @@
 ﻿using IDrobeAPI.Application.Interfaces.IMails;
 using IDrobeAPI.Application.Interfaces.ITokens;
+using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
 using IDrobeAPI.Infrastructure.Implementation.Mails;
+using IDrobeAPI.Infrastructure.Implementation.Services.SendQueryServices;
 using IDrobeAPI.Infrastructure.Implementation.Tokens;
 using IDrobeAPI.Infrastructure.Models;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,9 @@ namespace IDrobeAPI.Infrastructure
 
             //Mail service
             services.AddTransient<IMailService, MailKitMailService>();
+
+            services.AddTransient<ISendQueryService, SendQueryService>();
+            services.AddTransient<SendQueryMailBody>();//todo bunun abstract hissesin yazmaq olar
 
             //responseModels Paginate<T> : IPaginate<T>
             //services.AddScoped(typeof(IGenericActionResponse<>),typeof(GenericActionResponse<>));
