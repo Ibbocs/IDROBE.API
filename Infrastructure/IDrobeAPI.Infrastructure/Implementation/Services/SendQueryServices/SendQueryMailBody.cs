@@ -1,6 +1,8 @@
 ﻿using IDrobeAPI.Application.DTOs;
 using Microsoft.AspNetCore.Http;
 using System.Text;
+using IDrobeAPI.Application.DTOs.SendQueriesDTOs;
+
 
 namespace IDrobeAPI.Infrastructure.Implementation.Services.SendQueryServices;
 

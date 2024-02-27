@@ -1,5 +1,4 @@
-﻿using IDrobeAPI.Application.Features.SendQueries.Constants;
-using IDrobeAPI.Application.Interfaces.IMails;
+﻿using IDrobeAPI.Application.Interfaces.IMails;
 using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
 using IDrobeAPI.Application.Models.Mails;
 using IDrobeAPI.Application.Models.Responses;
@@ -37,10 +36,10 @@ internal class SendQueryService : ISendQueryService
 
         Mail mail = new();
 
-        mail.Subject = SendQueryConstants.mailSubject;
+        mail.Subject = SendQueryConstants.Mail_Subject;
         mail.TextBody = _queryMailBody.GetTextBody(model.QueryInfo);
         mail.HtmlBody = _queryMailBody.GetHtmlBody(model.StoreLogos, model.QueryInfo);
-        mail.ToFullName = SendQueryConstants.mailToFullName;
+        mail.ToFullName = SendQueryConstants.Mail_To_Full_Name;
         mail.ToEmail = _configuration["SendQueryMail:ToMail"];
 
         AttachmentCollection mimeEntities = new AttachmentCollection();
