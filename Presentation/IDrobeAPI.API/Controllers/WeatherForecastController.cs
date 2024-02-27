@@ -4,9 +4,8 @@ using IDrobeAPI.Application.Features.Products.Queries.GetAllProducts;
 using IDrobeAPI.Application.Interfaces.IAutoMapper;
 using IDrobeAPI.Application.Interfaces.IMails;
 using IDrobeAPI.Application.Models.Mails;
-using IDrobeAPI.Application.Features.SendQueries.Commands;
-using IDrobeAPI.Application.Features.SendQueries.Models;
 using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
+using IDrobeAPI.Application.Models.SendQueries;
 
 namespace IDrobeAPI.API.Controllers
 {
@@ -83,11 +82,11 @@ namespace IDrobeAPI.API.Controllers
             var data = _queryService.SendQuery(model);
         }
 
-        [HttpPost("po3")]
-        public void SendQueryMedi([FromForm] CreateSendQueryCommandRequest request)//FromForm
-        {
-            var data = _mediator.Send(request);
-        }
+        //[HttpPost("po3")]
+        //public void SendQueryMedi([FromForm] CreateSendQueryCommandRequest request)//FromForm
+        //{
+        //    var data = _mediator.Send(request);
+        //}
 
 
         //[HttpPost]

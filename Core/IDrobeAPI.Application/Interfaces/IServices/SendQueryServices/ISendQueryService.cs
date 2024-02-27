@@ -1,5 +1,5 @@
-﻿using IDrobeAPI.Application.Features.SendQueries.Models;
-using IDrobeAPI.Application.Models.Responses;
+﻿using IDrobeAPI.Application.Models.Responses;
+using IDrobeAPI.Application.Models.SendQueries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +10,5 @@ namespace IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
 
 public interface ISendQueryService
 {
-    public Task<bool> SendQuery(SendQueryModel model);
+    public GenericActionResponse<bool> SendQuery(SendQueryModel model);
 }

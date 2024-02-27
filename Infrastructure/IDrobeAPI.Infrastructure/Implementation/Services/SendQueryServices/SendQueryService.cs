@@ -1,7 +1,9 @@
-﻿using IDrobeAPI.Application.Features.SendQueries.Models;
+﻿using IDrobeAPI.Application.Features.SendQueries.Constants;
 using IDrobeAPI.Application.Interfaces.IMails;
 using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
 using IDrobeAPI.Application.Models.Mails;
+using IDrobeAPI.Application.Models.Responses;
+using IDrobeAPI.Application.Models.SendQueries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
@@ -29,8 +31,9 @@ internal class SendQueryService : ISendQueryService
         _configuration = configuration;
     }
 
-    public async Task<bool> SendQuery(SendQueryModel model)
+    public GenericActionResponse<bool> SendQuery(SendQueryModel model)
     {
+        GenericActionResponse<bool> response = new GenericActionResponse<bool>(false, System.Net.HttpStatusCode.BadRequest, false, SendQueryResponseMessageConstants.Response_Message_Error);
 
         Mail mail = new();
 
@@ -51,30 +54,34 @@ internal class SendQueryService : ISendQueryService
         mail.Attachments = mimeEntities;
 
 
-        //_mailService.SendMail(mail);
-        await Task.Run(() => _mailService.SendMail(mail));
+        _mailService.SendMail(mail);
+        //await Task.Run(() => _mailService.SendMail(mail));
 
+        response.Message = SendQueryResponseMessageConstants.Response_Message;
+        response.ResponseCode = System.Net.HttpStatusCode.OK;
+        response.Data = true;
+        response.RequestSuccessful = true;
 
-        return true;
+        return response;
     }
 
     public MimeEntity ConvertToAttachment(IFormFile formFile)
     {
-        using( var stream = new MemoryStream())
+        var stream = new MemoryStream(); //todo bunu usuing yazanda xeta olur
+
+
+        formFile.CopyTo(stream);
+        stream.Position = 0;
+
+        var attachment = new MimePart(formFile.ContentType)
         {
-            formFile.CopyTo(stream);
-            stream.Position = 0;
+            Content = new MimeContent(stream),
+            ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+            ContentTransferEncoding = ContentEncoding.Base64,
+            FileName = formFile.FileName
+        };
 
-            var attachment = new MimePart(formFile.ContentType)
-            {
-                Content = new MimeContent(stream),
-                ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = formFile.FileName
-            };
+        return attachment;
 
-            return attachment;
-        }
-        
     }
 }

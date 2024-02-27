@@ -1,4 +1,5 @@
-﻿using IDrobeAPI.Application.Features.SendQueries.Commands;
+﻿using IDrobeAPI.Application.Interfaces.IServices.SendQueryServices;
+using IDrobeAPI.Application.Models.SendQueries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +9,16 @@ namespace IDrobeAPI.API.Controllers
     [ApiController]
     public class SendQueryController : BaseController
     {
-        [HttpPost("send-collaborating-query")]
-        public async Task<IActionResult> SendCollaboratingQuery([FromForm] CreateSendQueryCommandRequest request)
+        private readonly ISendQueryService _queryService;
+        public SendQueryController(ISendQueryService queryService)
         {
-            var data = await _mediator.Send(request);
+            _queryService = queryService;
+        }
+
+        [HttpPost("send-collaborating-query")]
+        public IActionResult SendCollaboratingQuery([FromForm] SendQueryModel request)
+        {
+            var data = _queryService.SendQuery(request);
             return StatusCode((int)data.ResponseCode, data);
         }
     }

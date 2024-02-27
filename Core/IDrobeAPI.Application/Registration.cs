@@ -3,7 +3,7 @@ using FluentValidation.AspNetCore;
 using IDrobeAPI.Application.BaseObjects;
 using IDrobeAPI.Application.Beheviors;
 using IDrobeAPI.Application.Exceptions.Middlewares;
-using IDrobeAPI.Application.Features.SendQueries.Commands;
+using IDrobeAPI.Application.Validations.SendQueries;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +32,10 @@ namespace IDrobeAPI.Application
             //fullent validation
             services.AddValidatorsFromAssembly(assembly);
 
-            services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<CreateSendQueryCommandRequest>());
+            //-----
+            services.AddControllers().AddFluentValidation(config => config.RegisterValidatorsFromAssemblyContaining<SendQueryModelCommandValidator>());
+            //----
+
             //services.AddValidatorsFromAssemblyContaining(typeof(SendQueryModelValidator));
             //services.AddTransient<SendQueryModelValidator>();
 

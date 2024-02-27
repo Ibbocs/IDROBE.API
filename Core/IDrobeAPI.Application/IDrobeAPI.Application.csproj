@@ -17,11 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
     <Folder Include="Features\Auth\Constants\" />
     <Folder Include="Features\Auth\DTOs\" />
     <Folder Include="Features\Auth\Model\" />
     <Folder Include="Features\Auth\Queries\" />
+    <Folder Include="Features\SendQueries\DTOs\" />
+    <Folder Include="Features\SendQueries\Models\" />
   </ItemGroup>
 
   <ItemGroup>
